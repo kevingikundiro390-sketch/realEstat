@@ -76,9 +76,9 @@ function build(): Listing[] {
   const r = rng(42);
   const out: Listing[] = [];
   for (let n = 0; n < 36; n++) {
-    const c = cities[n % cities.length];
+    const c = cities[n % cities.length]!;
     const status: ListingStatus = n % 3 === 1 ? "rent" : "sale";
-    const type = status === "rent" ? (n % 2 ? "Apartment" : types[Math.floor(r() * 3)]) : types[Math.floor(r() * 3)];
+    const type = status === "rent" ? (n % 2 ? "Apartment" : types[Math.floor(r() * 3)]!) : types[Math.floor(r() * 3)]!;
     const beds = 1 + Math.floor(r() * 5);
     const baths = Math.max(1, Math.min(beds, 1 + Math.floor(r() * 4)));
     const sqft = 650 + beds * 420 + Math.floor(r() * 500);
@@ -86,14 +86,14 @@ function build(): Listing[] {
       status === "sale"
         ? Math.round((150000 + sqft * (120 + r() * 140)) / 1000) * 1000
         : Math.round((700 + beds * 420 + r() * 700) / 25) * 25;
-    const ext = exteriors[n % exteriors.length];
+    const ext = exteriors[n % exteriors.length]!;
     const feats = [...featurePool].sort(() => r() - 0.5).slice(0, 7);
     const num = 100 + Math.floor(r() * 9800);
-    const street = streets[Math.floor(r() * streets.length)];
+    const street = streets[Math.floor(r() * streets.length)]!;
     const unit = type === "Apartment" || type === "Condo" ? `, Unit ${1 + Math.floor(r() * 12)}${"ABCD"[n % 4]}` : "";
     out.push({
       id: `hb-${1000 + n}`,
-      photos: [ext, ...interiors.slice(n % 3), ...interiors.slice(0, n % 3), exteriors[(n + 2) % exteriors.length]],
+      photos: [ext, ...interiors.slice(n % 3), ...interiors.slice(0, n % 3), exteriors[(n + 2) % exteriors.length]!],
       price,
       status,
       address: `${num} ${street}${unit}`,
@@ -112,7 +112,7 @@ function build(): Listing[] {
       listedDaysAgo: Math.floor(r() * 45),
       lat: c.lat + (r() - 0.5) * 0.05,
       lng: c.lng + (r() - 0.5) * 0.05,
-      agent: agents[n % agents.length],
+      agent: agents[n % agents.length]!,
     });
   }
   return out;
@@ -126,13 +126,13 @@ export const formatPrice = (l: Pick<Listing, "price" | "status">) =>
   `$${l.price.toLocaleString("en-US")}${l.status === "rent" ? "/mo" : ""}`;
 
 export type Filters = {
-  q?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  beds?: number;
-  baths?: number;
-  type?: string;
-  sort?: string;
+  q?: string | undefined;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
+  beds?: number | undefined;
+  baths?: number | undefined;
+  type?: string | undefined;
+  sort?: string | undefined;
 };
 
 export function filterListings(status: ListingStatus, f: Filters) {

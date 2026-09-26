@@ -21,7 +21,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
     e.preventDefault();
     setError("");
     const parsed = (mode === "signup" ? schema : schema.omit({ name: true })).safeParse(form);
-    if (!parsed.success) return setError(parsed.error.issues[0].message);
+    if (!parsed.success) return setError(parsed.error.issues[0]?.message ?? "Invalid input");
     try {
       if (mode === "signup") auth.signUp(form.name, form.email, form.password);
       else auth.signIn(form.email, form.password);

@@ -7,10 +7,10 @@ import { ListingCard } from "./listing-card";
 export function parseFilters(s: Record<string, unknown>): Filters {
   const num = (v: unknown) => (v === undefined || v === "" || isNaN(Number(v)) ? undefined : Number(v));
   return {
-    q: typeof s.q === "string" ? s.q : s.q !== undefined ? String(s.q) : undefined,
-    minPrice: num(s.minPrice), maxPrice: num(s.maxPrice), beds: num(s.beds), baths: num(s.baths),
-    type: typeof s.type === "string" ? s.type : undefined,
-    sort: typeof s.sort === "string" ? s.sort : undefined,
+    q: typeof s['q'] === "string" ? s['q'] : s['q'] !== undefined ? String(s['q']) : undefined,
+    minPrice: num(s['minPrice']), maxPrice: num(s['maxPrice']), beds: num(s['beds']), baths: num(s['baths']),
+    type: typeof s['type'] === "string" ? s['type'] : undefined,
+    sort: typeof s['sort'] === "string" ? s['sort'] : undefined,
   };
 }
 
@@ -40,7 +40,7 @@ export function ListingsPage({ status, search }: { status: ListingStatus; search
       </form>
 
       <div className={`${showFilters ? "grid" : "hidden"} mt-3 grid-cols-2 gap-2 md:flex md:flex-wrap`}>
-        <select aria-label="Price" className={sel} value={priceIdx} onChange={(e) => { const p = priceRanges[status][+e.target.value]; update({ minPrice: p.min, maxPrice: p.max }); }}>
+        <select aria-label="Price" className={sel} value={priceIdx} onChange={(e) => { const p = priceRanges[status][+e.target.value]; update({ minPrice: p?.min, maxPrice: p?.max }); }}>
           {priceRanges[status].map((p, i) => <option key={p.label} value={i}>{p.label}</option>)}
         </select>
         <select aria-label="Beds" className={sel} value={search.beds ?? 0} onChange={(e) => update({ beds: +e.target.value || undefined })}>
