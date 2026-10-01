@@ -24,7 +24,7 @@ function ResourcesPage() {
   const pay = r ? (p * r) / (1 - Math.pow(1 + r, -n)) : p / n;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div className="w-full px-4 py-10 sm:px-8 lg:px-10">
       <h1 className="font-display text-3xl font-extrabold text-navy">Resources</h1>
       <section id="calculator" className="mt-8 grid gap-6 rounded-lg border border-border p-6 md:grid-cols-2">
         <div className="space-y-3">

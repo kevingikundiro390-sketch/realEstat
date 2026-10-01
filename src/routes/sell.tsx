@@ -24,7 +24,7 @@ const input = "w-full rounded-md border border-border px-3 py-2.5 text-sm outlin
 
 function SellPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div className="w-full px-4 py-10 sm:px-8 lg:px-10">
       <h1 className="font-display text-3xl font-extrabold text-navy sm:text-4xl">Sell or rent out your property</h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">Reach thousands of buyers and renters every day. Here's how listing with HomeBase works.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

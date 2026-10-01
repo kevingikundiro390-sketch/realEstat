@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
 import { QuickActions } from "@/components/quick-actions";
 import { FeaturedListings } from "@/components/featured-listings";
@@ -30,7 +29,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
       <main>
         <Hero />
         <QuickActions />

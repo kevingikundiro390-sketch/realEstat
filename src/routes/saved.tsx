@@ -20,7 +20,7 @@ function SavedPage() {
   const { favorites } = useFavorites();
   const items = listings.filter((l) => favorites.includes(l.id));
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="w-full px-4 py-8 sm:px-8 lg:px-10">
       <h1 className="font-display text-3xl font-extrabold text-navy">Saved homes</h1>
       <p className="mt-1 text-sm text-muted-foreground">{items.length} saved</p>
       {items.length ? (

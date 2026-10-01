@@ -24,3 +24,11 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Deploy to Appwrite Sites
+
+See [APPWRITE_DEPLOYMENT.md](APPWRITE_DEPLOYMENT.md) for the exact Appwrite Site settings, static build command, and output directory.
+
+
+
+API URL  https://kmxagcabgppesvkjyzwf.supabase.co/rest/v1/

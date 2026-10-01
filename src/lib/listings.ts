@@ -75,10 +75,10 @@ function rng(seed: number) {
 function build(): Listing[] {
   const r = rng(42);
   const out: Listing[] = [];
-  for (let n = 0; n < 36; n++) {
+  for (let n = 0; n < 120; n++) {
     const c = cities[n % cities.length]!;
     const status: ListingStatus = n % 3 === 1 ? "rent" : "sale";
-    const type = status === "rent" ? (n % 2 ? "Apartment" : types[Math.floor(r() * 3)]!) : types[Math.floor(r() * 3)]!;
+    const type = status === "rent" ? (n % 2 ? "Apartment" : types[Math.floor(r() * types.length)]!) : types[Math.floor(r() * types.length)]!;
     const beds = 1 + Math.floor(r() * 5);
     const baths = Math.max(1, Math.min(beds, 1 + Math.floor(r() * 4)));
     const sqft = 650 + beds * 420 + Math.floor(r() * 500);

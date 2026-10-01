@@ -9,17 +9,17 @@ const actions = [
 
 export function QuickActions() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <section className="w-full px-4 py-8 sm:px-8 lg:px-10 lg:pb-10 lg:pt-8">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {actions.map(({ icon: Icon, title, desc }) => (
           <a
             key={title}
             href="#"
-            className="group flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-all hover:border-brand hover:shadow-sm"
+            className="group flex items-center gap-4 rounded-xl border border-[#dfe7f2] bg-[#f5f7fb] p-5 transition-all hover:-translate-y-0.5 hover:border-brand hover:shadow-sm"
           >
-            <Icon className="h-8 w-8 shrink-0 text-brand" strokeWidth={1.5} />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#dfe7f2] bg-white text-brand"><Icon className="h-5 w-5" strokeWidth={2} /></span>
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-bold text-navy">{title}</h3>
+              <h3 className="text-[1.05rem] font-bold text-navy">{title}</h3>
               <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
             </div>
             <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand" />

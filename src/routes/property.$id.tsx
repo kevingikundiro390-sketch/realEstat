@@ -71,7 +71,7 @@ function PropertyPage() {
   const payment = l.status === "sale" ? Math.round(((l.price * 0.8) * (0.065 / 12)) / (1 - Math.pow(1 + 0.065 / 12, -360))) : null;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <div className="w-full px-4 py-6 sm:px-8 lg:px-10">
       <Link to={l.status === "sale" ? "/buy" : "/rent"} className="inline-flex items-center gap-1 text-sm font-medium text-brand">
         <ArrowLeft className="h-4 w-4" /> Back to results
       </Link>
