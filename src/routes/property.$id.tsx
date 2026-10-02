@@ -5,14 +5,14 @@ import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SaveButton } from "@/components/listing-card";
 import { formatPrice, getListing, type Listing } from "@/lib/listings";
-import { fetchRealListings } from "@/lib/real-listings";
+import { fetchListings } from "@/lib/real-listings";
 import { useFavorites } from "@/lib/store";
 
 export const Route = createFileRoute("/property/$id")({
   loader: async ({ params }) => {
     const [saleListings, rentListings] = await Promise.all([
-      fetchRealListings({ data: "sale" }),
-      fetchRealListings({ data: "rent" }),
+      fetchListings({ data: "sale" }),
+      fetchListings({ data: "rent" }),
     ]);
     const l = getListing(params.id, [...saleListings, ...rentListings]);
     if (!l) throw notFound();

@@ -3,12 +3,12 @@ import { Hero } from "@/components/hero";
 import { QuickActions } from "@/components/quick-actions";
 import { FeaturedListings } from "@/components/featured-listings";
 import { SiteFooter } from "@/components/site-footer";
-import { fetchRealListings } from "@/lib/real-listings";
+import { fetchListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/")({
   loader: async () => ({
-    sale: await fetchRealListings({ data: "sale" }),
-    rent: await fetchRealListings({ data: "rent" }),
+    sale: await fetchListings({ data: "sale" }),
+    rent: await fetchListings({ data: "rent" }),
   }),
   head: () => ({
     meta: [

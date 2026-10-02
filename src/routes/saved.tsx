@@ -2,12 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { ListingCard } from "@/components/listing-card";
 import { useFavorites } from "@/lib/store";
-import { fetchRealListings } from "@/lib/real-listings";
+import { fetchListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/saved")({
   loader: async () => ({
-    sale: await fetchRealListings({ data: "sale" }),
-    rent: await fetchRealListings({ data: "rent" }),
+    sale: await fetchListings({ data: "sale" }),
+    rent: await fetchListings({ data: "rent" }),
   }),
   head: () => ({
     meta: [

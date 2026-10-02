@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ListingsPage, parseFilters } from "@/components/listings-page";
-import { fetchRealListings } from "@/lib/real-listings";
+import { fetchListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/rent")({
   validateSearch: parseFilters,
-  loader: async () => fetchRealListings({ data: "rent" }),
+  loader: async () => fetchListings({ data: "rent" }),
   head: () => ({
     meta: [
       { title: "Homes & Apartments for Rent | HomeBase" },
