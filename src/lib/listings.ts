@@ -120,7 +120,7 @@ function build(): Listing[] {
 
 export const listings: Listing[] = build();
 
-export const getListing = (id: string) => listings.find((l) => l.id === id);
+export const getListing = (id: string, source: Listing[] = listings) => source.find((l) => l.id === id);
 
 export const formatPrice = (l: Pick<Listing, "price" | "status">) =>
   `$${l.price.toLocaleString("en-US")}${l.status === "rent" ? "/mo" : ""}`;
@@ -135,9 +135,9 @@ export type Filters = {
   sort?: string | undefined;
 };
 
-export function filterListings(status: ListingStatus, f: Filters) {
+export function filterListings(status: ListingStatus, f: Filters, source: Listing[] = listings) {
   const q = (f.q ?? "").trim().toLowerCase();
-  let res = listings.filter((l) => {
+  let res = source.filter((l) => {
     if (l.status !== status) return false;
     if (q) {
       const hay = `${l.address} ${l.city} ${l.state} ${l.zip} ${l.neighborhood}`.toLowerCase();

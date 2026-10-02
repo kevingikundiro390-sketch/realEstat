@@ -3,8 +3,13 @@ import { Hero } from "@/components/hero";
 import { QuickActions } from "@/components/quick-actions";
 import { FeaturedListings } from "@/components/featured-listings";
 import { SiteFooter } from "@/components/site-footer";
+import { fetchListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/")({
+  loader: async () => ({
+    sale: await fetchListings({ data: "sale" }),
+    rent: await fetchListings({ data: "rent" }),
+  }),
   head: () => ({
     meta: [
       { title: "HomeBase | Find your next home to buy or rent" },
@@ -27,12 +32,13 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const data = Route.useLoaderData();
   return (
     <div className="min-h-screen bg-background">
       <main>
         <Hero />
         <QuickActions />
-        <FeaturedListings />
+        <FeaturedListings saleListings={data.sale} rentListings={data.rent} />
       </main>
       <SiteFooter />
     </div>

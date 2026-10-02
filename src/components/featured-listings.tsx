@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { listings } from "@/lib/listings";
+import type { Listing } from "@/lib/listings";
 import { ListingCard } from "./listing-card";
 
-function Row({ title, status }: { title: string; status: "sale" | "rent" }) {
-  const items = listings.filter((l) => l.status === status).slice(0, 8);
+function Row({ title, status, items }: { title: string; status: "sale" | "rent"; items: Listing[] }) {
+  const sliced = items.slice(0, 8);
   return (
     <div className="mt-12 first:mt-0">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -14,17 +14,17 @@ function Row({ title, status }: { title: string; status: "sale" | "rent" }) {
         </Link>
       </div>
       <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((l) => <ListingCard key={l.id} l={l} />)}
+        {sliced.map((l) => <ListingCard key={l.id} l={l} />)}
       </div>
     </div>
   );
 }
 
-export function FeaturedListings() {
+export function FeaturedListings({ saleListings, rentListings }: { saleListings: Listing[]; rentListings: Listing[] }) {
   return (
     <section className="w-full px-4 pb-20 sm:px-8 lg:px-10">
-      <Row title="Featured Listings" status="sale" />
-      <Row title="Popular Rentals" status="rent" />
+      <Row title="Featured Listings" status="sale" items={saleListings} />
+      <Row title="Popular Rentals" status="rent" items={rentListings} />
     </section>
   );
 }

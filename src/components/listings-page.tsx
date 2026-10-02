@@ -18,11 +18,11 @@ export function parseFilters(s: Record<string, unknown>): Filters {
 const sel = "h-11 w-full appearance-none rounded-md border border-border bg-white px-3 pr-9 text-sm font-semibold text-navy shadow-sm outline-none transition hover:border-brand/50 focus:border-brand focus:ring-2 focus:ring-brand/15";
 const homeTypes = ["House", "Condo", "Townhouse", "Apartment"] as const;
 
-export function ListingsPage({ status, search }: { status: ListingStatus; search: Filters }) {
+export function ListingsPage({ status, search, source }: { status: ListingStatus; search: Filters; source: Listing[] }) {
   const navigate = useNavigate();
   const [q, setQ] = useState(search.q ?? "");
   const [showFilters, setShowFilters] = useState(false);
-  const results = filterListings(status, search);
+  const results = filterListings(status, search, source);
   const update = (patch: Partial<Filters>) =>
     navigate({ to: status === "sale" ? "/buy" : "/rent", search: { ...search, ...patch } as never, replace: true });
   const priceIdx = Math.max(0, priceRanges[status].findIndex((p) => p.min === search.minPrice && p.max === search.maxPrice));
