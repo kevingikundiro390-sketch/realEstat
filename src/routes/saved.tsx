@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
-import { ListingCard } from "@/components/listing-card";
-import { listings } from "@/lib/listings";
+import { Heart, Download } from "lucide-react";
+import { icons } from "@/lib/icons";
 import { useFavorites } from "@/lib/store";
+import { IconTile } from "@/components/icon-tile";
+import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/saved")({
   head: () => ({
     meta: [
-      { title: "Saved Homes | HomeBase" },
-      { name: "description", content: "Your saved homes and rentals on HomeBase." },
-      { property: "og:title", content: "Saved Homes | HomeBase" },
-      { property: "og:description", content: "Your saved homes and rentals on HomeBase." },
+      { title: "Saved Icons | 3D Icons" },
+      { name: "description", content: "Your saved 3D icons." },
     ],
   }),
   component: SavedPage,
@@ -18,24 +17,34 @@ export const Route = createFileRoute("/saved")({
 
 function SavedPage() {
   const { favorites } = useFavorites();
-  const items = listings.filter((l) => favorites.includes(l.id));
+  const savedIcons = icons.filter((icon) => favorites.includes(icon.id));
+
   return (
-    <div className="w-full px-4 py-8 sm:px-8 lg:px-10">
-      <h1 className="font-display text-3xl font-extrabold text-navy">Saved homes</h1>
-      <p className="mt-1 text-sm text-muted-foreground">{items.length} saved</p>
-      {items.length ? (
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{items.map((l) => <ListingCard key={l.id} l={l} />)}</div>
-      ) : (
-        <div className="mt-8 rounded-lg border border-dashed border-border p-12 text-center">
-          <Heart className="mx-auto h-8 w-8 text-muted-foreground" />
-          <p className="mt-3 font-semibold text-navy">No saved homes yet</p>
-          <p className="mt-1 text-sm text-muted-foreground">Tap the heart on any listing to save it here.</p>
-          <div className="mt-4 flex justify-center gap-3">
-            <Link to="/buy" className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground">Browse for sale</Link>
-            <Link to="/rent" className="rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy">Browse rentals</Link>
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        <h1 className="font-display text-3xl font-extrabold text-foreground">Saved icons</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{savedIcons.length} saved</p>
+
+        {savedIcons.length > 0 ? (
+          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+            {savedIcons.map((icon) => (
+              <IconTile key={icon.id} icon={icon} />
+            ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="mt-12 flex flex-col items-center justify-center py-20 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface">
+              <Heart className="h-8 w-8 text-muted-foreground/40" />
+            </div>
+            <p className="mt-4 text-sm font-medium text-muted-foreground">No saved icons yet</p>
+            <p className="text-xs text-muted-foreground/60">Tap the heart on any icon to save it here</p>
+            <Link to="/icons" className="mt-6 flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-foreground/90">
+              <Download className="h-4 w-4" /> Browse icons
+            </Link>
+          </div>
+        )}
+      </div>
+      <SiteFooter />
     </div>
   );
 }

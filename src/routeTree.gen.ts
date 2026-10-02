@@ -10,8 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as BuyRouteImport } from './routes/buy'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DonateRouteImport } from './routes/donate'
+import { Route as IconsRouteImport } from './routes/icons'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as RentRouteImport } from './routes/rent'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -20,11 +23,17 @@ import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as IconsIdRouteImport } from './routes/icons.$id'
 import { Route as PropertyIdRouteImport } from './routes/property.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuyRoute = BuyRouteImport.update({
@@ -35,6 +44,16 @@ const BuyRoute = BuyRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IconsRoute = IconsRouteImport.update({
+  id: '/icons',
+  path: '/icons',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InboxRoute = InboxRouteImport.update({
@@ -77,6 +96,11 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IconsIdRoute = IconsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => IconsRoute,
+} as any)
 const PropertyIdRoute = PropertyIdRouteImport.update({
   id: '/property/$id',
   path: '/property/$id',
@@ -85,8 +109,11 @@ const PropertyIdRoute = PropertyIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/buy': typeof BuyRoute
   '/dashboard': typeof DashboardRoute
+  '/donate': typeof DonateRoute
+  '/icons': typeof IconsRouteWithChildren
   '/inbox': typeof InboxRoute
   '/rent': typeof RentRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -95,12 +122,16 @@ export interface FileRoutesByFullPath {
   '/sell': typeof SellRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/icons/$id': typeof IconsIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/buy': typeof BuyRoute
   '/dashboard': typeof DashboardRoute
+  '/donate': typeof DonateRoute
+  '/icons': typeof IconsRouteWithChildren
   '/inbox': typeof InboxRoute
   '/rent': typeof RentRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -109,13 +140,17 @@ export interface FileRoutesByTo {
   '/sell': typeof SellRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/icons/$id': typeof IconsIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/buy': typeof BuyRoute
   '/dashboard': typeof DashboardRoute
+  '/donate': typeof DonateRoute
+  '/icons': typeof IconsRouteWithChildren
   '/inbox': typeof InboxRoute
   '/rent': typeof RentRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -124,14 +159,18 @@ export interface FileRoutesById {
   '/sell': typeof SellRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/icons/$id': typeof IconsIdRoute
   '/property/$id': typeof PropertyIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/buy'
     | '/dashboard'
+    | '/donate'
+    | '/icons'
     | '/inbox'
     | '/rent'
     | '/reset-password'
@@ -140,12 +179,16 @@ export interface FileRouteTypes {
     | '/sell'
     | '/signin'
     | '/signup'
+    | '/icons/$id'
     | '/property/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/buy'
     | '/dashboard'
+    | '/donate'
+    | '/icons'
     | '/inbox'
     | '/rent'
     | '/reset-password'
@@ -154,12 +197,16 @@ export interface FileRouteTypes {
     | '/sell'
     | '/signin'
     | '/signup'
+    | '/icons/$id'
     | '/property/$id'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/buy'
     | '/dashboard'
+    | '/donate'
+    | '/icons'
     | '/inbox'
     | '/rent'
     | '/reset-password'
@@ -168,13 +215,17 @@ export interface FileRouteTypes {
     | '/sell'
     | '/signin'
     | '/signup'
+    | '/icons/$id'
     | '/property/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BuyRoute: typeof BuyRoute
   DashboardRoute: typeof DashboardRoute
+  DonateRoute: typeof DonateRoute
+  IconsRoute: typeof IconsRouteWithChildren
   InboxRoute: typeof InboxRoute
   RentRoute: typeof RentRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -195,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/buy': {
       id: '/buy'
       path: '/buy'
@@ -207,6 +265,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/icons': {
+      id: '/icons'
+      path: '/icons'
+      fullPath: '/icons'
+      preLoaderRoute: typeof IconsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inbox': {
@@ -265,6 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/icons/$id': {
+      id: '/icons/$id'
+      path: '/$id'
+      fullPath: '/icons/$id'
+      preLoaderRoute: typeof IconsIdRouteImport
+      parentRoute: typeof IconsRoute
+    }
     '/property/$id': {
       id: '/property/$id'
       path: '/property/$id'
@@ -275,10 +354,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface IconsRouteChildren {
+  IconsIdRoute: typeof IconsIdRoute
+}
+
+const IconsRouteChildren: IconsRouteChildren = {
+  IconsIdRoute: IconsIdRoute,
+}
+
+const IconsRouteWithChildren = IconsRoute._addFileChildren(IconsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BuyRoute: BuyRoute,
   DashboardRoute: DashboardRoute,
+  DonateRoute: DonateRoute,
+  IconsRoute: IconsRouteWithChildren,
   InboxRoute: InboxRoute,
   RentRoute: RentRoute,
   ResetPasswordRoute: ResetPasswordRoute,

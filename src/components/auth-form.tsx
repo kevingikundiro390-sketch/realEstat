@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, Eye, EyeOff, Home, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import heroHouse from "@/assets/hero-house.jpg";
 import { useAuth } from "@/lib/store";
 
 const emailSchema = z
@@ -47,14 +46,14 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   const isRecovery = mode === "reset-password" && auth.recoverySession;
   const isSignUp = mode === "signup";
   const isReset = mode === "reset-password";
-  const title = isRecovery ? "Choose a new password" : isReset ? "Reset your password" : isSignUp ? "Make yourself at home." : "Welcome back.";
+  const title = isRecovery ? "Choose a new password" : isReset ? "Reset your password" : isSignUp ? "Join the community." : "Welcome back.";
   const description = isRecovery
-    ? "Choose a new password for your HomeBase account."
+    ? "Choose a new password for your 3D Icons account."
     : isReset
       ? "We’ll email you a secure link to get back into your account."
       : isSignUp
-        ? "Save homes, keep your search in sync, and pick up where you left off."
-        : "Sign in to see your saved homes and continue your search.";
+        ? "Save icons, sync across devices, and download faster."
+        : "Sign in to see your saved icons and continue browsing.";
 
   const showSuccessCard = Boolean(successState);
 
@@ -125,8 +124,8 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
         setForm((current) => ({ ...current, password: "", confirmPassword: "" }));
       } else if (isSignUp) {
         await auth.signUp(form.name, form.email, form.password);
-        setSuccessState({ title: "Done", detail: "Your HomeBase account is ready. Redirecting…" });
-        toast.success("Your HomeBase account is ready.");
+        setSuccessState({ title: "Done", detail: "Your 3D Icons account is ready. Redirecting…" });
+        toast.success("Your 3D Icons account is ready.");
         window.setTimeout(() => {
           void navigate({ to: "/" });
         }, 1200);
@@ -144,18 +143,20 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   };
 
   return (
-    <main className="fixed inset-0 overflow-hidden bg-[#eef3ff]">
+    <main className="fixed inset-0 overflow-hidden pastel-gradient">
       <div className="grid h-full w-full grid-cols-1 lg:grid-cols-[520px_minmax(0,1fr)]">
-        <section className="flex h-full items-center justify-center bg-[#f5f7fb] px-5 py-6 sm:px-8 lg:px-10">
+        <section className="flex h-full items-center justify-center bg-white/60 px-5 py-6 backdrop-blur-sm sm:px-8 lg:px-10">
           <div className="w-full max-w-[420px]">
             <div className="mb-8">
-              <Link to="/" className="inline-flex items-center gap-2.5 text-navy">
-                <img src="/homebase-logo.svg" alt="" className="h-9 w-9" />
-                <span className="font-display text-xl font-extrabold">HomeBase</span>
+              <Link to="/" className="inline-flex items-center gap-2.5 text-foreground">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#7C5CFF] to-[#FF6B9D] text-white shadow-md">
+                  <span className="text-lg font-extrabold">3</span>
+                </div>
+                <span className="font-display text-xl font-extrabold">3D Icons</span>
               </Link>
             </div>
 
-            <h1 className="font-display text-3xl font-extrabold text-navy sm:text-4xl">{title}</h1>
+            <h1 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl">{title}</h1>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
 
             {!auth.isConfigured && (
@@ -185,7 +186,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
             <div className="mt-8 rounded-t-[30px] rounded-br-[30px] border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] sm:p-5">
               <form onSubmit={submit} className="space-y-5" noValidate>
                 {isSignUp && (
-                  <Field label="Full name" icon={<Home className="h-4 w-4" />}>
+                  <Field label="Full name" icon={<Sparkles className="h-4 w-4" />}>
                     <input
                       autoComplete="name"
                       className={fieldClass}
@@ -230,7 +231,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
                       />
                       <button
                         aria-label={showPassword ? "Hide password" : "Show password"}
-                        className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-muted-foreground transition-colors hover:text-navy"
+                        className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
                         onClick={() => setShowPassword((visible) => !visible)}
                         type="button"
                       >
@@ -309,15 +310,29 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
               ) : isReset ? (
                 <>Remember your password? <Link to="/signin" className="font-semibold text-brand hover:text-brand-hover">Log in</Link></>
               ) : (
-                <>New to HomeBase? <Link to="/signup" className="font-semibold text-brand hover:text-brand-hover">Sign up</Link></>
+                <>New to 3D Icons? <Link to="/signup" className="font-semibold text-brand hover:text-brand-hover">Sign up</Link></>
               )}
             </p>
           </div>
         </section>
 
-        <aside className="relative h-full overflow-hidden">
-          <img src={heroHouse} alt="A welcoming home surrounded by trees" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.14),rgba(15,23,42,0.58))]" />
+        <aside className="relative hidden h-full overflow-hidden bg-gradient-to-br from-[#7C5CFF] via-[#A259FF] to-[#FF6B9D] lg:block">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 p-12">
+            <Sparkles className="h-12 w-12 text-white/80" />
+            <div className="grid grid-cols-3 gap-6">
+              {["🎨", "🎯", "🟡", "🟦", "🟪", "🖌️", "💧", "✏️", "✂️"].map((emoji, i) => (
+                <div
+                  key={i}
+                  className="icon-3d flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 text-4xl backdrop-blur-sm"
+                  style={{ animation: `floaty ${6 + i}s ease-in-out infinite`, animationDelay: `${i * 0.3}s` }}
+                >
+                  {emoji}
+                </div>
+              ))}
+            </div>
+            <h2 className="text-center font-display text-3xl font-extrabold text-white">Beautifully crafted 3D icons</h2>
+            <p className="text-center text-base text-white/70">Use with any design tool</p>
+          </div>
         </aside>
       </div>
     </main>
@@ -347,7 +362,7 @@ const fieldClass = "w-full rounded-xl border border-slate-200 bg-slate-50/80 py-
 
 function Field({ label, icon, children }: { label: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
-    <label className="block space-y-2 text-sm font-semibold text-navy">
+    <label className="block space-y-2 text-sm font-semibold text-foreground">
       <span>{label}</span>
       <span className="relative block">
         <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">{icon}</span>

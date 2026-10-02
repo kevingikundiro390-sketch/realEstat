@@ -11,7 +11,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { SideNavigation, SiteHeader } from "@/components/site-header";
+import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -80,14 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "HomeBase" },
-      { name: "description", content: "Buy, rent, and sell homes with HomeBase." },
-      { name: "author", content: "HomeBase" },
-      { property: "og:title", content: "HomeBase" },
-      { property: "og:description", content: "Buy, rent, and sell homes with HomeBase." },
+      { title: "3D Icons | Beautifully crafted open source 3D icons" },
+      { name: "description", content: "Download 1000+ beautifully crafted 3D icons. Free and open source." },
+      { name: "author", content: "3D Icons" },
+      { property: "og:title", content: "3D Icons | Beautifully crafted open source 3D icons" },
+      { property: "og:description", content: "Download 1000+ beautifully crafted 3D icons. Free and open source." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@3dicons" },
     ],
     links: [
       {
@@ -132,13 +132,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-dvh">
         {showSiteHeader && <SiteHeader />}
-        <div className={showSiteHeader ? "lg:flex" : ""}>
-          {showSiteHeader && <SideNavigation />}
-          <div className="min-w-0 flex-1">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
-          </div>
-        </div>
+        <Outlet />
       </div>
       <Toaster position="top-right" />
     </QueryClientProvider>
