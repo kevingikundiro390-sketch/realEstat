@@ -1,10 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { ListingCard } from "@/components/listing-card";
-import { listings } from "@/lib/listings";
 import { useFavorites } from "@/lib/store";
+import { fetchRealListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/saved")({
+  loader: async () => ({
+    sale: await fetchRealListings({ data: "sale" }),
+    rent: await fetchRealListings({ data: "rent" }),
+  }),
   head: () => ({
     meta: [
       { title: "Saved Homes | HomeBase" },
@@ -18,7 +22,9 @@ export const Route = createFileRoute("/saved")({
 
 function SavedPage() {
   const { favorites } = useFavorites();
-  const items = listings.filter((l) => favorites.includes(l.id));
+  const data = Route.useLoaderData();
+  const allListings = [...data.sale, ...data.rent];
+  const items = allListings.filter((l) => favorites.includes(l.id));
   return (
     <div className="w-full px-4 py-8 sm:px-8 lg:px-10">
       <h1 className="font-display text-3xl font-extrabold text-navy">Saved homes</h1>

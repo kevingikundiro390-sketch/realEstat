@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ListingsPage, parseFilters } from "@/components/listings-page";
+import { fetchRealListings } from "@/lib/real-listings";
 
 export const Route = createFileRoute("/buy")({
   validateSearch: parseFilters,
+  loader: async () => fetchRealListings({ data: "sale" }),
   head: () => ({
     meta: [
       { title: "Homes for Sale | HomeBase" },
@@ -11,5 +13,5 @@ export const Route = createFileRoute("/buy")({
       { property: "og:description", content: "Search houses, condos, and townhomes for sale on HomeBase." },
     ],
   }),
-  component: () => <ListingsPage status="sale" search={Route.useSearch()} />,
+  component: () => <ListingsPage status="sale" search={Route.useSearch()} source={Route.useLoaderData()} />,
 });
