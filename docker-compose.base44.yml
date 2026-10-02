@@ -6,6 +6,8 @@ services:
       - ./:/app
     ports:
       - "3000:3000"
+    env_file:
+      - /run/base44/app.env
     environment:
       - VITE_SUPABASE_URL=https://kmxagcabgppesvkjyzwf.supabase.co
       - VITE_SUPABASE_ANON_KEY=sb_publishable_SuUsn__5xmb9ThuVkc2how_A7Ud6TyB

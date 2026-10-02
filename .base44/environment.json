@@ -1,6 +1,1 @@
-{
-  "previewPort": 3000,
-  "healthPath": "/",
-  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
-  "secrets": []
-}
+{"previewPort": 3000, "healthPath": "/", "startCommand": "docker compose -f docker-compose.base44.yml up -d", "secrets": [{"name": "RENTCAST_API_KEY", "description": "Free API key from RentCast (https://app.rentcast.io/app/api). Sign up for a free account (50 calls/month, no credit card) to show real property listings.", "requiredAtBoot": false, "generatedForDevelopment": false}]}
