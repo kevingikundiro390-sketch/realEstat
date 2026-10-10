@@ -124,7 +124,12 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
         setNotice(`Password reset instructions were sent to ${form.email.trim()}.`);
         setForm((current) => ({ ...current, password: "", confirmPassword: "" }));
       } else if (isSignUp) {
-        await auth.signUp(form.name, form.email, form.password);
+        const signedIn = await auth.signUp(form.name, form.email, form.password);
+        if (!signedIn) {
+          setNotice(`Check ${form.email.trim()} for a confirmation link before signing in.`);
+          setForm((current) => ({ ...current, password: "", confirmPassword: "" }));
+          return;
+        }
         setSuccessState({ title: "Done", detail: "Your HomeBase account is ready. Redirecting…" });
         toast.success("Your HomeBase account is ready.");
         window.setTimeout(() => {

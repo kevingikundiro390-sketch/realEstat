@@ -241,11 +241,10 @@ export function useAuth() {
         },
       });
       if (error) throw error;
-      if (!data.session || !data.user) {
-        throw new Error("Email confirmation is enabled in Supabase. Turn off Authentication > Providers > Email > Confirm email to create accounts and sign in immediately.");
-      }
+      if (!data.session || !data.user) return false;
       applySession(mapUser(data.user));
       await syncAccountFavorites(data.user.id);
+      return true;
     },
     async signIn(email: string, password: string) {
       const client = requireSupabase();
